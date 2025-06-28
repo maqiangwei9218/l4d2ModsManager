@@ -2,3 +2,4 @@ main.exe
 config.json
 custommods
 custommods___*.vpk
+ui/node_modules

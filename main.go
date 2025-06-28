@@ -2,6 +2,7 @@ package main
 
 import (
 	"embed"
+	"fmt"
 	"go-example/api"
 	"go-example/config"
 	"go-example/utils"
@@ -17,8 +18,8 @@ var staticFiles embed.FS
 
 func main() {
 	config.InitConfig()
-
-	r := gin.Default()
+	gin.SetMode(gin.ReleaseMode)
+	r := gin.New()
 	r.Use(cors.Default())
 
 	r.GET("/mods", api.HandleMods)
@@ -30,6 +31,6 @@ func main() {
 	}
 	r.StaticFS("/front", http.FS(subFS))
 	utils.OpenBrowser("http://127.0.0.1:9090/front/")
+	fmt.Println("http://127.0.0.1:9090/front/")
 	r.Run(":9090")
-
 }

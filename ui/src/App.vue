@@ -4,7 +4,7 @@
       <ElButton size="mini" @click="addAll">添加全部</ElButton>
       <ElButton size="mini" @click="cancelAll">取消全部</ElButton>
     </div>
-    <el-checkbox-group v-model="selected" :style="{lineHeight:'22px'}">
+    <el-checkbox-group v-model="selected" :style="{ lineHeight: '22px' }">
       <el-checkbox
         @change="handleChange($event, key)"
         v-for="(value, key) in data"
@@ -12,7 +12,9 @@
         :label="key"
         :name="key"
         :disabled="false"
-      ></el-checkbox>
+        :border="false"
+        >{{ key.replace(/^custommods\//, "") }}</el-checkbox
+      >
     </el-checkbox-group>
   </div>
 </template>
@@ -68,30 +70,34 @@ export default {
       axios({
         method: "GET",
         url: "http://127.0.0.1:9090/mods",
-      }).then((result) => {
-        this.data = result.data;
-        this.selected = Object.entries(this.data).filter(item=>{
-          return item[1] == true;
-        }).map(item=>{
-          return item[0]
+      })
+        .then((result) => {
+          this.data = result.data;
+          this.selected = Object.entries(this.data)
+            .filter((item) => {
+              return item[1] == true;
+            })
+            .map((item) => {
+              return item[0];
+            });
         })
-      }).finally(() => {
+        .finally(() => {
           elLoadingComponent.close();
         });
     },
-    addAll(){
+    addAll() {
       // const keys = Object.entries(this.data).filter(item=>{
       //     return item[1] == false;
       //   }).map(item=>{
       //     return item[0]
       //   })
     },
-    cancelAll(){
-        //  const keys = Object.entries(this.data).filter(item=>{
-        //   return item[1] == true;
-        // }).map(item=>{
-        //   return item[0]
-        // })
+    cancelAll() {
+      //  const keys = Object.entries(this.data).filter(item=>{
+      //   return item[1] == true;
+      // }).map(item=>{
+      //   return item[0]
+      // })
     },
   },
   created() {
