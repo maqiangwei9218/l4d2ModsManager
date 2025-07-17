@@ -31,6 +31,10 @@ func main() {
 	if err != nil {
 		return
 	}
+	var rr = utils.RepetitionMods("custommods", []string{".vpk"})
+	if len(rr) > 0 {
+		fmt.Println("检测到重复文件", utils.RepetitionMods("custommods", []string{".vpk"}))
+	}
 	r.StaticFS("/front", http.FS(subFS))
 	utils.OpenBrowser("http://127.0.0.1:9090/front/")
 	fmt.Println("http://127.0.0.1:9090/front/")
