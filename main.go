@@ -24,6 +24,8 @@ func main() {
 
 	r.GET("/mods", api.HandleMods)
 	r.POST("/mod", api.HandleMod)
+	r.GET("/exit", api.HandleExit)
+	r.POST("/exit", api.HandleExit)
 
 	subFS, err := fs.Sub(staticFiles, "ui/dist")
 	if err != nil {
